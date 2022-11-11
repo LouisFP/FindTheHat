@@ -1,0 +1,14 @@
+{
+  "name": "findthehat",
+  "version": "1.0.0",
+  "description": "FindTheHat-TerminalGame",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "LouisFP",
+  "license": "ISC",
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
+}
