@@ -7,6 +7,7 @@ const pathCharacter = "*";
 const pathCharacterCurrent = "+";
 let pathArray = [[0, 0]];
 let returnBool = false;
+let liveCounter = 5;
 
 class Field {
   constructor(field = [[]]) {
@@ -38,7 +39,6 @@ class Field {
           returnBool = true;
           break;
         }
-        console.log(this.containArray([this.x - 1, this.y]));
         this.x -= 1;
         pathArray = [...pathArray, [this.x, this.y]];
         break;
@@ -59,7 +59,7 @@ class Field {
         pathArray = [...pathArray, [this.x, this.y]];
         break;
       case "a":
-        if (pathArray.includes([this.x, this.y - 1])) {
+        if (this.containArray([this.x, this.y - 1])) {
           returnBool = true;
           break;
         }
@@ -92,7 +92,20 @@ class Field {
       this.print();
       if (returnBool) {
         console.log("You've already been there, try again!");
+        liveCounter--;
+        console.log(
+          liveCounter <= 1
+            ? liveCounter === 1
+              ? "You have one life left"
+              : ``
+            : `You have ${liveCounter} lives left!`
+        );
         returnBool = false;
+        if (liveCounter === 0) {
+          console.log("Ah sorry you have no lives left");
+          currentPlaying = !currentPlaying;
+          break;
+        }
       }
       this.movePrompt();
       if (this.isOutBounds()) {
@@ -108,6 +121,8 @@ class Field {
         currentPlaying = !currentPlaying;
         break;
       }
+      console.log(pathArray);
+      console.log(pathArray[pathArray.length - 2]);
       this.field[pathArray[pathArray.length - 2][0]][
         pathArray[pathArray.length - 2][1]
       ] = pathCharacter;
